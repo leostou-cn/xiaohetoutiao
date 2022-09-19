@@ -3,12 +3,17 @@
 
 <template>
   <div>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive :exclude="['detailView']">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
 <style >
-html,body{
+html,
+body {
   height: 100%;
   width: 100%;
   scroll-behavior: smooth;

@@ -15,9 +15,9 @@
 </template>
 <script lang='ts' setup>
 import { localSearch } from '../../utils/localSearch'
-import { Dialog } from 'vant';
+import { showDialog } from 'vant';
 import { useStore } from '../../store';
-import { computed, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 // const 
 const emits = defineEmits(['historySearch'])
@@ -27,9 +27,11 @@ const historyList = ref([])
 
 // methods
 const clearHistory = () => {
-  Dialog.confirm({
+  showDialog({
     title: '删除历史记录',
-    message: '删除历史记录后无法恢复'
+    message: '删除历史记录后无法恢复',
+    showCancelButton:true,
+    confirmButtonText:'取消'
   }).then(() => {
     localSearch({
       type: 'delete'
@@ -39,13 +41,13 @@ const clearHistory = () => {
   })
 }
 const toSearchResult = (data: string) => {
-  emits('historySearch',data)
+  emits('historySearch', data)
   store.searchStore.clearSugSearchData()
 }
 
-const reFreshHistoryList=() => {
+const reFreshHistoryList = () => {
   historyList.value = localSearch({
-    type:'get'
+    type: 'get'
   })
 }
 
@@ -62,6 +64,7 @@ onMounted(() => {
   font-size: 18px;
   padding: 10px 10px 20px 10px;
 }
+
 .bottom {
   .history_box {
     display: inline-block;

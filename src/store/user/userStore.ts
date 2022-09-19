@@ -65,17 +65,29 @@ export default defineStore('userStore', {
       const result = await $http(json)
       this.userProfile.photo = result.data.photo
       this.userInfo.photo = result.data.photo
+    },
+    async reqUpdateUserProfile(data: object) {
+      const json = {
+        url: '/v1_0/user/profile',
+        method: 'patch',
+        data
+      }
+      const result = await $http(json)
+      if (result.message === 'OK') {
+        for (const key in data) {
+          if (Object.prototype.hasOwnProperty.call(data, key)) {
+            this.userProfile[key] = data[key]
+          }
+        }
+      }
     }
   },
   getters: {
     getUserInfo(state) {
       return state.userInfo
     },
-    // getUserData(state) {
-    //   return {
-    //     follower: state.userFollower.total_count,
-    //     followings: state.userFollowings.total_count,
-    //   }
-    // }
+    getUserProfile(state) {
+      return state.userProfile
+    }
   }
 })

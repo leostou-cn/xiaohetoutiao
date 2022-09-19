@@ -1,4 +1,5 @@
 export interface CellFnMapType{
   logout: Function,
-  edit: Function
+  edit: Function,
+  chat:Function
 }

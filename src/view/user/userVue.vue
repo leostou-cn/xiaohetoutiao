@@ -38,7 +38,8 @@
 <script lang='ts' setup>
 import { onMounted, computed } from 'vue';
 import { useStore } from '../../store';
-import { Dialog } from 'vant';
+import { showDialog } from 'vant';
+import 'vant/lib/notify/index.css'
 import { useRouter } from 'vue-router';
 import type { CellFnMapType } from './type'
 import deleteToken from '../../utils/deleteToken';
@@ -64,7 +65,7 @@ const cellFnMap: CellFnMapType = {
     router.push({ name: 'user_edit' })
   },
   'logout': () => {
-    Dialog.confirm({
+    showDialog({
       title: '退出登录',
       message: '是否确认退出登录',
       showCancelButton: true
@@ -74,6 +75,9 @@ const cellFnMap: CellFnMapType = {
     }).catch(err => {
       console.log(err);
     })
+  },
+  'chat': () => {
+    router.push({ name: 'chat' })
   }
 }
 

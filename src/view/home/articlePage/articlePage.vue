@@ -48,9 +48,7 @@ import { useStore } from '../../../store';
 import { useRouter } from 'vue-router';
 import { formatFromNow } from '@/utils/formatDate'
 import { getArticleList } from '../../../api/home';
-import { Notify } from 'vant';
-import 'vant/es/notify/style';
-import 'vant/es/dialog/style';
+import { showNotify } from 'vant';
 import type { FeedBackFormType, OnSelectType, RootObject } from './type';
 import $http from '@axios'
 // const
@@ -144,7 +142,7 @@ const selectEnd = async (type: string) => {
     feedBackForm.type = undefined
     showReport.value = false
     show.value = false
-    Notify({ type: 'success', message: type === 'dislike' ? '操作成功' : '反馈成功', duration: 1000 });
+    showNotify({ type: 'success', message: type === 'dislike' ? '操作成功' : '反馈成功', duration: 1000 });
   }
 }
 const onSelectReport = ({ type }: OnSelectType) => {

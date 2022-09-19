@@ -4,6 +4,7 @@ import homeStore from './homeStore'
 import searchStore from './search'
 import detailStore from './detail'
 import userStore from './user/userStore'
+import chatStore from './chatStore/chatStore'
 
 export const useStore = defineStore('store', {
   state: () => {
@@ -12,7 +13,8 @@ export const useStore = defineStore('store', {
       homeStore: homeStore(),
       searchStore: searchStore(),
       detailStore: detailStore(),
-      userStore: userStore()
+      userStore: userStore(),
+      chatStore: chatStore()
     }
   }
 })

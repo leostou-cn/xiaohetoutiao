@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <!-- channle tab -->
-    <van-tabs v-model:active="active" sticky offset-top="1.2267rem" @click-tab="onClickTab">
+    <van-tabs v-model:active="active" sticky offset-top="1.2267rem" >
       <van-tab v-for="(item) in allChannels" :key="item.id" :name="item.id" :title="item.name">
-        <articlePageVue />
+        <!-- <keep-alive> -->
+          <articlePageVue />
+        <!-- </keep-alive> -->
       </van-tab>
     </van-tabs>
 
@@ -17,6 +19,7 @@
     </van-popup>
   </div>
 </template>
+
 <script lang='ts' setup>
 import articlePageVue from './articlePage/articlePage.vue';
 import allChannelsPage from './allChannelsPage/allChannels.vue'
@@ -38,9 +41,6 @@ const active = computed(() => {
 })
 
 // methods
-const onClickTab = ({ name }: TabProps) => {
-  store.homeStore.changActivePage(name)
-}
 const toEditChannels = () => {
   showAllChannels.value = true
 }

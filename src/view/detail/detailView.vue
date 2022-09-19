@@ -73,12 +73,13 @@
 
   </div>
 </template>
-<script lang='ts' setup>
+
+<script lang='ts' setup name="detailView">
 import headerVueVue from '../../components/headerVue.vue';
 import articleComment from './articleComment/articleComment.vue'
 import { useRouter, useRoute } from 'vue-router';
-import { computed, onMounted, ref,onUnmounted } from 'vue';
-import { Notify, NotifyOptions } from 'vant';
+import { computed, onMounted, ref, onUnmounted } from 'vue';
+import { showNotify, showNotifyOptions } from 'vant';
 import { useStore } from '../../store';
 import { formatFromNow } from '@/utils/formatDate'
 
@@ -110,15 +111,15 @@ const handleFollow = async (id: string, is_followed: boolean) => {
       message: is_followed ? '取消关注成功' : '关注成功',
       type: is_followed ? 'warning' : 'primary',
       duration: 1000
-    } as NotifyOptions
+    } as showNotifyOptions
   } else {
     options = {
       message: is_followed ? '取消关注失败' : '关注失败',
       type: 'warning',
       duration: 1000
-    } as NotifyOptions
+    } as showNotifyOptions
   }
-  Notify(options)
+  showNotify(options)
 }
 const changeAttitude = (id: string, type: number) => {
   store.detailStore.reqChangeAttitude(id, type)
@@ -137,7 +138,7 @@ const toCommentArea = () => {
 }
 const pushComment = async (target: string, art_id: string) => {
   if (!comment.value) {
-    Notify({
+    showNotify({
       message: '内容不能为空',
       color: '#000',
       background: '#ccc',

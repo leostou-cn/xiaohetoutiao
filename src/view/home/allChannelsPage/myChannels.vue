@@ -19,7 +19,6 @@
 import channelsTagVue from './channelsTag.vue';
 import { useStore } from '../../../store';
 import { computed } from 'vue';
-import { UserChannelsType } from './type'
 
 // const  
 const store = useStore()

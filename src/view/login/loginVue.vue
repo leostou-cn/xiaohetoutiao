@@ -28,7 +28,7 @@ import type { FormInstance } from 'vant';
 import { useRouter } from 'vue-router';
 import { postLogin } from '@/api/loginApi/index';
 import { useStore } from '@/store/index'
-import { Notify } from 'vant';
+import { showNotify } from 'vant';
 // const
 const router = useRouter();
 const store = useStore()
@@ -62,7 +62,7 @@ const onSubmit = async (value: ValidType) => {
     if (result?.message === 'OK') {
       window.localStorage.setItem('token', result.data.token)
       store.loginStore.setLoginData(result.data)
-      Notify({
+      showNotify({
         type: 'success',
         message: '登陆成功',
         duration: 1000
@@ -72,7 +72,7 @@ const onSubmit = async (value: ValidType) => {
       }, 1000)
     }
   } catch (error) {
-    Notify({
+    showNotify({
       type: 'danger',
       message: '登陆失败'
     })

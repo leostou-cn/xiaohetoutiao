@@ -1,7 +1,7 @@
 import axios from 'axios'
 import RequestType from './type'
 import getToken from '../utils/getToken'
-import { Notify } from 'vant';
+import { showNotify } from 'vant';
 import { router } from "@/router"
 
 const request = axios.create({
@@ -23,8 +23,8 @@ request.interceptors.response.use((res: any) => {
   return res.data
 }, (err: any) => {
   if (err.response.status === 401) {
+    showNotify({ type: 'warning', message: '登录凭证过期' });
     router.push({ name: 'login' })
-    Notify({ type: 'warning', message: '身份失效' })
   }
   return Promise.reject(err)
 })

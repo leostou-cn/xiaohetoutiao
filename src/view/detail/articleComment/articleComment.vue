@@ -29,7 +29,7 @@ import { useRoute } from 'vue-router';
 import { useStore } from '../../../store';
 
 import { formatFromNow } from '../../../utils/formatDate';
-import { Notify } from 'vant';
+import { showNotify } from 'vant';
 
 // const 
 const store = useStore()
@@ -50,7 +50,7 @@ const likeComment = async (target: string, type: boolean, item: object) => {
   if (result) {
     item.is_liking = item.is_liking ? false : true
   } else {
-    Notify({
+    showNotify({
       message: '操作失败',
       background: '#ccc',
       color: '#000',
