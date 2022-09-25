@@ -1,9 +1,10 @@
 <template>
   <div class="detail_container">
     <div id="content_scroll" @click="hideTextArea">
-      <headerVueVue title="文章详情" :showLeftIcon="true" showLeftText="返回" @onClickBack="onClickBack" />
+      <!-- <headerVueVue title="文章详情" :showLeftIcon="true" showLeftText="返回" @onClickBack="onClickBack" /> -->
       <van-loading size="24px" vertical v-if="Object.keys(articleDetail).length === 0">加载中...</van-loading>
       <div v-else class="detail_body">
+
         <!-- title -->
         <div class="title">{{ articleDetail.title }}</div>
 
@@ -30,10 +31,12 @@
 
         <!-- details -->
         <div class="article_body">
+          <!-- <video ref="videoPlayer" class="video-js"></video> -->
           <article class="article_body_detail" v-html="articleDetail.content">
           </article>
         </div>
 
+        <!-- like box -->
         <div class="like_box" @click="changeAttitude(articleDetail.art_id, articleDetail.attitude)">
           <div class="is_like" v-if="articleDetail.attitude === 1">
             <van-button plain round icon="good-job-o"> 已点赞
@@ -70,18 +73,21 @@
         v-model.trim="comment" placeholder="友善评论、理性发言、阳光心灵"></textarea>
       <van-button type="primary" @click="pushComment(articleDetail.art_id, articleDetail.art_id)">发布</van-button>
     </div>
-
   </div>
 </template>
 
 <script lang='ts' setup name="detailView">
-import headerVueVue from '../../components/headerVue.vue';
+// import headerVueVue from '../../components/headerVue.vue';
 import articleComment from './articleComment/articleComment.vue'
 import { useRouter, useRoute } from 'vue-router';
-import { computed, onMounted, ref, onUnmounted } from 'vue';
+import { computed, onMounted, ref, onUnmounted, reactive } from 'vue';
 import { showNotify, showNotifyOptions } from 'vant';
 import { useStore } from '../../store';
 import { formatFromNow } from '@/utils/formatDate'
+// import videojs from "video.js"
+// import "video.js/dist/video-js.css"
+// import objUrl from '@/assets/video/WeChat_20220925202741.mp4'
+// import $http from '@/api'
 
 // const 
 const router = useRouter()
@@ -90,6 +96,8 @@ const store = useStore()
 const comment = ref('留下您的观点吧~')
 const showCommentInout = ref(false)
 const comment_text = ref(null)
+const videoPlayer = ref(null)
+const myPlayer = ref(null)
 
 // computed
 const articleDetail = computed(() => {
@@ -97,9 +105,9 @@ const articleDetail = computed(() => {
 })
 
 // methods
-const onClickBack = () => {
-  router.go(-1)
-}
+// const onClickBack = () => {
+//   router.go(-1)
+// }
 const getArticleData = () => {
   store.detailStore.reqGetArticleDetail(route.params.id as string)
 }
@@ -158,9 +166,32 @@ const hideTextArea = () => {
   }
 }
 
+// const paly = () => {
+//   myPlayer.value = videojs(videoPlayer.value, {
+//     poster: "//vjs.zencdn.net/v/oceans.png",
+//     controls: true,
+//     loop: false,
+//     sources: [
+//       {
+//         src: objUrl,
+//         type: 'video/mp4',
+//       }
+//     ],
+//     controlBar: {
+//       remainingTimeDisplay: {
+//         displayNegative: false
+//       }
+//     },
+//     playbackRates: [0.5, 1, 1.5, 2]
+//   }, () => {
+//     myPlayer.value.log("play.....")
+//   })
+// }
+
 // onMounted
 onMounted(() => {
   getArticleData()
+
 })
 
 // onUnmounted
@@ -173,12 +204,25 @@ onUnmounted(() => {
   padding: 46px 0 80px 0;
   width: 100%;
 
+  .video-js {
+    width: 100%;
+    height: 266.25px;
+    margin: 40px 0;
+
+    /deep/.vjs-big-play-button {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .title {
     padding: 10px 0px;
   }
 
   .van-loading {
     padding: 100px;
+
   }
 
   .detail_body {

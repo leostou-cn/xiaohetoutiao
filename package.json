@@ -20,16 +20,19 @@
     "pinia": "^2.0.21",
     "postcss": "^8.4.16",
     "postcss-pxtorem": "5.1.1",
+    "push.js": "^1.0.12",
     "socket.io": "4.0.0",
     "socket.io-client": "4.0.0",
     "unplugin-vue-define-options": "^0.11.2",
     "vant": "4.0.0-rc.0",
+    "vite-plugin-mock": "^2.9.6",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@originjs/vite-plugin-commonjs": "^1.0.3",
+    "@types/mockjs": "^1.0.6",
     "@types/node": "^18.7.14",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
@@ -38,6 +41,7 @@
     "eslint-plugin-vue": "^9.4.0",
     "typescript": "^4.6.4",
     "unplugin-vue-components": "^0.22.4",
+    "video.js": "^7.20.3",
     "vite": "^3.0.7",
     "vite-plugin-eslint": "^1.8.1",
     "vue-tsc": "^0.39.5"

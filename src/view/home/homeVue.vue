@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <!-- channle tab -->
-    <van-tabs v-model:active="active" sticky offset-top="1.2267rem" >
+    <van-tabs v-model:active="active" sticky offset-top="1.2267rem">
       <van-tab v-for="(item) in allChannels" :key="item.id" :name="item.id" :title="item.name">
         <!-- <keep-alive> -->
-          <articlePageVue />
+        <articlePageVue />
         <!-- </keep-alive> -->
       </van-tab>
     </van-tabs>
@@ -14,7 +14,9 @@
 
     <!-- allChannels page -->
     <van-popup class="edit_channels_class" v-model:show="showAllChannels" teleport="body" duration="0">
+     <transition name="article">
       <headerVueVue :showLeftIcon="true" @onClickBack="clickBack" />
+     </transition>
       <allChannelsPage @changeTabs="toChangeTabs" />
     </van-popup>
   </div>
@@ -26,7 +28,7 @@ import allChannelsPage from './allChannelsPage/allChannels.vue'
 import headerVueVue from '../../components/headerVue.vue';
 import { useStore } from '@/store/index'
 import { computed, onMounted, ref } from 'vue'
-import { TabProps } from 'vant'
+import Push from 'push.js'
 
 // const 
 const store = useStore()
@@ -53,7 +55,7 @@ const toChangeTabs = (id: number) => {
 }
 
 // onMounted
-onMounted(async () => {
+onMounted(() => {
   store.homeStore.reqGetUserChannels()
 })
 </script>
@@ -84,6 +86,27 @@ onMounted(async () => {
   }
 
 
+}
+
+.article-enter-active,
+.article-leave-active {
+  transition: all 0.3s linear;
+}
+
+.article-enter-from {
+  transform: translateX(100%);
+}
+
+.article-enter-to {
+  transform: translateX(0);
+}
+
+.article-leave-from {
+  transform: translateX(0);
+}
+
+.article-leave-to {
+  transform: translateX(100%);
 }
 </style>
 

@@ -27,6 +27,7 @@ export default defineStore('chatStore', {
         console.log('socket.io-connect')
       })
       this.socket.on('message', (obj: UpDataChatListType) => {
+        console.log(obj);
         this.chatList.push({
           name: 'xs', msg: obj.msg
         })

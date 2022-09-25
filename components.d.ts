@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     HeaderVue: typeof import('./src/components/headerVue.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollComp: typeof import('./src/components/scrollComp.vue')['default']
     TabBar: typeof import('./src/components/tabBar.vue')['default']
     VanActionSheet: typeof import('vant/es')['ActionSheet']
     VanButton: typeof import('vant/es')['Button']

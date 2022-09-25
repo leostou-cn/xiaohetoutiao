@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [{
   path: '/',
-  redirect: '/layout'
+  redirect: '/layout/home'
 }, {
   path: '/login',
   name: 'login',
@@ -18,19 +18,19 @@ const routes = [{
     keepalive: true
   }
 }, {
-  path: '/detail/:id',
-  name: 'detail',
-  component: () => import('@/view/detail/detailView.vue'),
-  meta: {
-    keepalive: true
-  }
-}, {
   path: '/layout',
   component: () => import('@/view/layout/layoutVue.vue'),
   children: [{
     path: 'home',
     name: 'home',
     component: () => import('@/view/home/homeVue.vue'),
+    meta: {
+      keepalive: true
+    }
+  }, {
+    path: '/detail/:id',
+    name: 'detail',
+    component: () => import('@/view/detail/detailView.vue'),
     meta: {
       keepalive: true
     }
@@ -54,6 +54,20 @@ const routes = [{
     component: () => import('@/view/chat/chatView.vue'),
     meta: {
       keepalive: true
+    }
+  }, {
+    path: 'scroll',
+    name: 'scroll',
+    component: () => import('@/view/scroll/scrollView.vue'),
+    meta: {
+      keepalive: true
+    }
+  }, {
+    path: 'video',
+    name: 'video',
+    component: () => import('@/view/video/videoView.vue'),
+    meta: {
+      keepalive: false
     }
   }],
   meta: {

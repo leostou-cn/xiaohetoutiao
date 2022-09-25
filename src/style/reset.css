@@ -99,4 +99,8 @@ html{
 .dn{
   display: none;
 }
-
+.wrapper::-webkit-scrollbar{display: none}
+.wrapper {
+    overflow: scroll;
+    padding-bottom: 50px;
+}

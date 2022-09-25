@@ -8,11 +8,28 @@ import 'amfe-flexible'//移动端自适应
 import { createPinia } from 'pinia'
 import 'default-passive-events'
 import 'highlight.js/styles/default.css'
+import './utils/disPlayListeten.js'
 const pinia = createPinia()
-
-const win: any = window
-
 const app = createApp(App)
+app.directive('scroll', {
+  mounted(el, { value }, VNode, preVn) {
+    const scrollList = Array.from(document.querySelectorAll(`#${value}`))
+    if (!value || !scrollList.length) {
+      throw '锚点之间的"data-scroll-class"必须一一对应'
+    }
+    el.addEventListener('touchend', () => {
+      const ele = scrollList.find(item => {
+        return item.dataset.scrollClass === el.dataset.scrollClass
+      })
+      ele?.scrollIntoView({
+        behavior: 'smooth',
+      })
+    })
+  },
+  unmounted(el) {
+    el.removeEventListener('click', el)
+  }
+})
 
 app.directive('autoFocus', {
   mounted() {
@@ -24,5 +41,4 @@ app.directive('autoFocus', {
     document.querySelector('textarea')?.focus()
   },
 })
-
 app.use(router).use(pinia).mount('#app')

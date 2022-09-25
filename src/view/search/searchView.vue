@@ -79,7 +79,7 @@ const loadMore = () => {
   toResult()
 }
 
-watch(searchKeyWord, (newValue, oldValue) => {
+watch(searchKeyWord, (newValue) => {
   if (newValue === '') {
     store.searchStore.changeShowType('history')
     store.searchStore.clearResultData()

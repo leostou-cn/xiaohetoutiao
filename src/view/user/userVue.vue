@@ -3,16 +3,16 @@
     <div class="top">
       <div class="top_user">
         <div class="top_user_photo">
-          <van-image round width="75" height="75" :src="userInfo.photo" />
+          <van-image round width="75" height="75" @click="callTel" :src="userInfo.photo" />
         </div>
         <div class=" top_user_info">
           <div class="top_user_info_name">{{ userInfo.name }}</div>
-          <van-tag type="primary" class="top_user_info_authentication">申请认证</van-tag>
+          <van-tag type="primary" class="top_user_info_authentication" @click="ClickLis">申请认证</van-tag>
         </div>
       </div>
       <div class="top_data">
         <div class="top_data_share flex">
-          <div class="top_data_count">{{ userInfo.art_count }}</div>
+          <div class="top_data_count" @click="toPushMsg">{{ userInfo.art_count }}</div>
           <div class="top_data_text">动态</div>
         </div>
         <div class="top_data_follow flex">
@@ -20,7 +20,7 @@
           <div class="top_data_text">关注</div>
         </div>
         <div class="top_data_fans flex">
-          <div class="top_data_count">{{ userInfo.fans_count }}</div>
+          <div class="top_data_count">{{ hiddenViewTest }}</div>
           <div class="top_data_text">粉丝</div>
         </div>
       </div>
@@ -36,13 +36,29 @@
   </div>
 </template>
 <script lang='ts' setup>
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { useStore } from '../../store';
 import { showDialog } from 'vant';
 import 'vant/lib/notify/index.css'
 import { useRouter } from 'vue-router';
 import type { CellFnMapType } from './type'
 import deleteToken from '../../utils/deleteToken';
+import fangDou from '../../utils/fangDou.js'
+import jieLiu from '../../utils/jieLie.js'
+import Push from 'push.js'
+const callTel = fangDou(() => {
+  console.log(3);
+}, 1000)
+
+const ClickLis = jieLiu(() => {
+  console.log('节流');
+}, 1000)
+
+const toPushMsg = () => {
+  Push.create('这是一则消息', '这是这则消息的通知')
+}
+
+const hiddenViewTest = ref(0)
 
 // const 
 const store = useStore()
@@ -92,6 +108,9 @@ const handleCell = (name: string) => {
 // onMounted
 onMounted(() => {
   store.userStore.reqGetUserInfo()
+  let timer = setInterval(() => {
+    hiddenViewTest.value++
+  }, 1000)
 })
 </script>
 <style scoped lang='less'>
@@ -154,7 +173,5 @@ onMounted(() => {
       }
     }
   }
-
-  .bot_operation {}
 }
 </style>

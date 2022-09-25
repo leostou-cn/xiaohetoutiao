@@ -47,7 +47,7 @@ export default defineConfig({
       name: 'nf-tool', // 起个名字，安装、引入用
       fileName: (format) => `nf-tool.${format}.js`// 打包后的文件名
     },
-    sourcemap: true, // 输出.map文件
+    sourcemap: false, // 输出.map文件
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue'],

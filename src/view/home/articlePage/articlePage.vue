@@ -22,7 +22,11 @@
             <van-icon name='cross' @click.stop="clickDislike(item.art_id)" />
           </div>
         </div>
+
       </van-list>
+
+      
+
     </van-pull-refresh>
 
     <!-- dislike  -->
@@ -51,6 +55,7 @@ import { getArticleList } from '../../../api/home';
 import { showNotify } from 'vant';
 import type { FeedBackFormType, OnSelectType, RootObject } from './type';
 import $http from '@axios'
+
 // const
 const store = useStore()
 const router = useRouter()
@@ -59,6 +64,7 @@ const finished = ref(false);
 const pullLoading = ref(false);
 const show = ref(false);
 const showReport = ref(false)
+
 // const showTextInput = ref(false)
 const articleList = reactive<RootObject>({
   pre_timestamp: (new Date()).getTime(),
@@ -159,6 +165,8 @@ const toDetail = (id: number | string) => {
 // onMounted
 onMounted(() => {
   reqToGetArticleList()
+
+ 
 })
 
 

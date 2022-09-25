@@ -1,11 +1,11 @@
 <template>
   <div>
-    <headerVueVue title="小何头条" @clickRight="toSearch" :showLeftIcon="true && !isHome" :showRightIcon="true"
-      v-if="showTop" />
+    <headerVueVue title="小何头条" @onClickBack="goBack" @clickRight="toSearch" :showLeftIcon="true && !isHome"
+      :showRightIcon="true" v-if="showTop" />
     <div class="container" id="LayoutContainer">
       <router-view v-slot="{ Component }">
         <keep-alive>
-          <component :is="Component" />
+            <component :is="Component" />
         </keep-alive>
       </router-view>
     </div>
@@ -13,7 +13,7 @@
   </div>
 </template>
 <script lang='ts' setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onErrorCaptured } from 'vue'
 import { useRoute } from 'vue-router';
 import tabBarVue from '../../components/tabBar.vue';
 import headerVueVue from '../../components/headerVue.vue';
@@ -25,7 +25,9 @@ const router = useRouter()
 
 // computed
 const showTabBar = computed(() => {
-  return route.name === 'home' || route.name === 'user'
+  return ['home', 'user', 'scroll', 'video'].some(item => {
+    return item === route.name
+  })
 })
 const showTop = computed(() => {
   return route.name !== 'user'
@@ -38,10 +40,43 @@ const getBar = (data: string) => {
 const toSearch = () => {
   router.push({ name: 'search' })
 }
+const goBack = () => {
+  router.go(-1)
+}
+
+onErrorCaptured((e) => {
+  console.log(e);
+  console.log(1);
+})
 
 </script>
 <style scoped lang='less'>
 .container {
   padding-bottom: 50px;
+}
+
+.layout-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.layout-enter-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.layout-enter-from {
+  transform: translateX(100%);
+}
+
+.layout-enter-to {
+  transform: translateX(0);
+}
+
+.layout-leave-from {
+  transform: translateX(0);
+}
+
+.layout-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>

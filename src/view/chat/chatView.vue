@@ -47,7 +47,7 @@ const scrollToView = () => {
   nextTick(() => {
     const lastTextEl = document.querySelector('.chat_box>.chat_box_item:last-child .chat_content')
     lastTextEl?.scrollIntoView({
-      behavior:'smooth'
+      behavior: 'smooth'
     })
   })
 
@@ -62,16 +62,20 @@ const toUser = () => {
   router.push({ name: 'user' })
 }
 const sendMessage = () => {
-  if (!message.value) return
-  socket.value.emit('message', {
-    msg: message.value,
-    timestamp: new Date().getTime()
-  })
+  try {
+    if (!message.value) return
+    const time = new Date().getTime()
+    socket.value.emit('message', {
+      msg: message.value,
+      timestamp: time
+    })
+  } catch (error) {
+    console.log(error);
+  }
   store.chatStore.upDataChatList({
     name: 'me',
     msg: message.value
   })
-
   message.value = ''
 }
 
